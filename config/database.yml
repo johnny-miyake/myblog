@@ -1,0 +1,27 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: <%= ENV["DATABASE_NAME"] %>
+  pool: 5
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOSTNAME"] %>
+  redis:
+    host: redis://<%= ENV["REDIS_HOSTNAME"] %>:6379
+    options:
+      namespace: <%= ENV["DATABASE_NAME"] %>
+      expires_in: <%= 1.day %>
+      compress: false
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default
